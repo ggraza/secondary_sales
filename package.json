@@ -1,0 +1,13 @@
+{
+	"name": "secondary_sales",
+	"private": true,
+	"type": "module",
+	"description": "Frontend tests for the Secondary Sales PWA (no build step is needed to run the app).",
+	"scripts": {
+		"test": "node --test 'tests_js/*.test.js'",
+		"test:e2e": "node tests_e2e/run.mjs"
+	},
+	"devDependencies": {
+		"fake-indexeddb": "6.0.0"
+	}
+}

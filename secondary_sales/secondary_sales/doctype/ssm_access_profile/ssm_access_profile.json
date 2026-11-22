@@ -1,0 +1,270 @@
+{
+ "actions": [],
+ "autoname": "field:profile_name",
+ "creation": "2026-11-22 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "profile_name",
+  "enabled",
+  "column_break_1",
+  "applies_to",
+  "role",
+  "user",
+  "priority",
+  "screens_section",
+  "screen_route",
+  "screen_order",
+  "screen_orders",
+  "column_break_s",
+  "screen_outstanding",
+  "views_section",
+  "view_list",
+  "view_grid",
+  "view_table",
+  "column_break_v",
+  "view_compact",
+  "view_catalogue",
+  "default_view",
+  "rules_section",
+  "customer_scope",
+  "order_action",
+  "max_discount_percent",
+  "column_break_r",
+  "allow_offline",
+  "allow_update_location",
+  "view_all_orders",
+  "fields_section",
+  "field_rules"
+ ],
+ "fields": [
+  {
+   "fieldname": "profile_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Profile Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Enabled"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Role",
+   "fieldname": "applies_to",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Applies To",
+   "options": "Role\nUser",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.applies_to=='Role'",
+   "fieldname": "role",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Role",
+   "mandatory_depends_on": "eval:doc.applies_to=='Role'",
+   "options": "Role"
+  },
+  {
+   "depends_on": "eval:doc.applies_to=='User'",
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "mandatory_depends_on": "eval:doc.applies_to=='User'",
+   "options": "User"
+  },
+  {
+   "default": "0",
+   "description": "When several role profiles match a user, the highest priority wins. A user profile always wins over role profiles.",
+   "fieldname": "priority",
+   "fieldtype": "Int",
+   "label": "Priority"
+  },
+  {
+   "fieldname": "screens_section",
+   "fieldtype": "Section Break",
+   "label": "Screens"
+  },
+  {
+   "default": "1",
+   "fieldname": "screen_route",
+   "fieldtype": "Check",
+   "label": "Customers / Route"
+  },
+  {
+   "default": "1",
+   "fieldname": "screen_order",
+   "fieldtype": "Check",
+   "label": "Take Orders"
+  },
+  {
+   "default": "1",
+   "fieldname": "screen_orders",
+   "fieldtype": "Check",
+   "label": "Order History"
+  },
+  {
+   "fieldname": "column_break_s",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "screen_outstanding",
+   "fieldtype": "Check",
+   "label": "Outstanding"
+  },
+  {
+   "fieldname": "views_section",
+   "fieldtype": "Section Break",
+   "label": "Cart Display Options"
+  },
+  {
+   "default": "1",
+   "fieldname": "view_list",
+   "fieldtype": "Check",
+   "label": "List"
+  },
+  {
+   "default": "1",
+   "fieldname": "view_grid",
+   "fieldtype": "Check",
+   "label": "Grid"
+  },
+  {
+   "default": "1",
+   "fieldname": "view_table",
+   "fieldtype": "Check",
+   "label": "Table"
+  },
+  {
+   "fieldname": "column_break_v",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "view_compact",
+   "fieldtype": "Check",
+   "label": "Compact"
+  },
+  {
+   "default": "1",
+   "fieldname": "view_catalogue",
+   "fieldtype": "Check",
+   "label": "Catalogue"
+  },
+  {
+   "default": "list",
+   "fieldname": "default_view",
+   "fieldtype": "Select",
+   "label": "Default View",
+   "options": "list\ngrid\ntable\ncompact\ncatalogue"
+  },
+  {
+   "fieldname": "rules_section",
+   "fieldtype": "Section Break",
+   "label": "Ordering Rules"
+  },
+  {
+   "default": "Route Plan Only",
+   "description": "All Permitted Customers still respects Frappe User Permissions on Customer.",
+   "fieldname": "customer_scope",
+   "fieldtype": "Select",
+   "label": "Customer Scope",
+   "options": "Route Plan Only\nAll Permitted Customers"
+  },
+  {
+   "default": "Save as Draft",
+   "fieldname": "order_action",
+   "fieldtype": "Select",
+   "label": "On Sync",
+   "options": "Save as Draft\nSubmit"
+  },
+  {
+   "default": "0",
+   "fieldname": "max_discount_percent",
+   "fieldtype": "Percent",
+   "label": "Max Discount %"
+  },
+  {
+   "fieldname": "column_break_r",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "allow_offline",
+   "fieldtype": "Check",
+   "label": "Allow Offline Use"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_update_location",
+   "fieldtype": "Check",
+   "label": "Allow Updating Customer Location"
+  },
+  {
+   "default": "0",
+   "fieldname": "view_all_orders",
+   "fieldtype": "Check",
+   "label": "See Orders of All Reps"
+  },
+  {
+   "description": "By default every field is visible, and only delivery date and remarks are editable. Hidden fields are removed by the server, not just hidden in the app.",
+   "fieldname": "fields_section",
+   "fieldtype": "Section Break",
+   "label": "Field Controls"
+  },
+  {
+   "fieldname": "field_rules",
+   "fieldtype": "Table",
+   "label": "Field Rules",
+   "options": "SSM Field Rule"
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-22 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Secondary Sales",
+ "name": "SSM Access Profile",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
