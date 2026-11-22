@@ -27,3 +27,5 @@ add_to_apps_screen = [
 		"route": "/ssm",
 	}
 ]
+
+before_tests = "secondary_sales.tests.utils.before_tests"
