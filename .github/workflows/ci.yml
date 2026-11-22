@@ -62,8 +62,13 @@ jobs:
         with:
           node-version: 18
           check-latest: true
-      - name: Install MariaDB client and wkhtmltopdf deps
-        run: sudo apt-get update && sudo apt-get install -y mariadb-client
+      - name: Install MariaDB client
+        run: |
+          sudo apt-get update && sudo apt-get install -y mariadb-client
+          mariadb --version
+          # Newer MariaDB clients require TLS by default; the CI server has none.
+          printf '[client]\nskip-ssl\n' > ~/.my.cnf
+          mariadb -h 127.0.0.1 -uroot -proot -e "select version()"
       - name: Install bench
         run: pip install frappe-bench
       - name: Init bench
