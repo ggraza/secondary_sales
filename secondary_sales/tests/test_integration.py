@@ -40,6 +40,19 @@ def make_user(email, roles):
 	u.save(ignore_permissions=True)
 
 
+def leaf(doctype):
+	"""A non-group node of a tree DocType, creating one if the site has none."""
+	name = frappe.db.get_value(doctype, {"is_group": 0}, "name")
+	if name:
+		return name
+	parent_field = "parent_" + frappe.scrub(doctype)
+	root = frappe.db.get_value(doctype, {"is_group": 1}, "name")
+	doc = frappe.get_doc(
+		{"doctype": doctype, frappe.scrub(doctype) + "_name": f"_SSM {doctype}", parent_field: root, "is_group": 0}
+	)
+	return doc.insert().name
+
+
 def order(customer=CUST_A, qty=12, **kw):
 	o = {
 		"client_uuid": str(uuid.uuid4()),
@@ -67,14 +80,17 @@ class TestSecondarySales(TestCase):
 					"country": "United States",
 				}
 			).insert()
+		customer_group = leaf("Customer Group")
+		territory = leaf("Territory")
+		item_group = leaf("Item Group")
 		for name in (CUST_A, CUST_B):
 			if not frappe.db.exists("Customer", name):
 				frappe.get_doc(
 					{
 						"doctype": "Customer",
 						"customer_name": name,
-						"customer_group": "All Customer Groups",
-						"territory": "All Territories",
+						"customer_group": customer_group,
+						"territory": territory,
 					}
 				).insert()
 		if not frappe.db.exists("Item", ITEM):
@@ -83,7 +99,7 @@ class TestSecondarySales(TestCase):
 					"doctype": "Item",
 					"item_code": ITEM,
 					"item_name": "SSM Cola",
-					"item_group": "All Item Groups",
+					"item_group": item_group,
 					"stock_uom": "Nos",
 					"is_stock_item": 0,
 					"is_sales_item": 1,
