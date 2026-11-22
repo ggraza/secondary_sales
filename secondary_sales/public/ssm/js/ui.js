@@ -124,6 +124,8 @@ export function qtyControl({ qty = 0, factor = 0, uom = "", packLabel = "Ctn", o
 		const currentPcs = () => Math.max(0, Number(pcsInput.querySelector("input").value) || 0);
 		const step = factor > 0 ? factor : 1;
 
+		const active = document.activeElement;
+		if (active && wrap.contains(active)) active.blur();
 		// replaceChildren is atomic: removing a focused input fires blur/change,
 		// which must not re-enter render while the old nodes are being removed.
 		wrap.replaceChildren(

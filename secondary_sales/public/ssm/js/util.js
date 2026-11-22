@@ -36,6 +36,10 @@ export function isSafeUrl(url) {
 }
 
 export function clear(el) {
+	// Blur a focused descendant first: removing a focused input fires
+	// blur/change mid-removal, and change handlers may re-render this node.
+	const active = globalThis.document?.activeElement;
+	if (active && active !== el && el.contains(active)) active.blur();
 	el.replaceChildren();
 	return el;
 }

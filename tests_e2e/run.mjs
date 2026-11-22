@@ -20,6 +20,16 @@ const server = await start(PORT);
 const browser = await chromium.launch();
 const problems = [];
 let passed = 0;
+// page.waitForFunction evaluates strings in some Playwright versions, which our
+// strict CSP (no unsafe-eval) correctly blocks, so poll with page.evaluate.
+async function waitFor(page, fn, { timeout = 10000 } = {}) {
+	const end = Date.now() + timeout;
+	while (Date.now() < end) {
+		if (await page.evaluate(fn).catch(() => false)) return;
+		await new Promise((r) => setTimeout(r, 150));
+	}
+	throw new Error(`Timed out waiting for ${fn}`);
+}
 const step = async (name, fn) => {
 	try {
 		await fn();
@@ -63,9 +73,9 @@ try {
 	});
 
 	await step("service worker takes control", async () => {
-		await page.waitForFunction(() => navigator.serviceWorker?.controller, null, { timeout: 15000 }).catch(async () => {
+		await waitFor(page, () => !!navigator.serviceWorker?.controller, { timeout: 15000 }).catch(async () => {
 			await page.reload();
-			await page.waitForFunction(() => navigator.serviceWorker?.controller, null, { timeout: 15000 });
+			await waitFor(page, () => !!navigator.serviceWorker?.controller, { timeout: 15000 });
 		});
 	});
 
@@ -130,7 +140,7 @@ try {
 	await step("back online: outbox syncs once, server gets both", async () => {
 		await ctx.setOffline(false);
 		await page.evaluate(() => window.dispatchEvent(new Event("online")));
-		await page.waitForFunction(() => !/\d/.test(document.querySelector(".status-chip")?.innerText || "x"), null, { timeout: 15000 });
+		await waitFor(page, () => !/\d/.test(document.querySelector(".status-chip")?.innerText || "x"), { timeout: 15000 });
 		assert.equal(db.orders.length, 2);
 		const order = db.orders.find((o) => o.outcome === "order");
 		assert.equal(order.customer, "CUST-0003");
@@ -160,7 +170,7 @@ try {
 		await page.waitForSelector(".order-card.st-pending", { timeout: 5000 });
 		assert.match(await page.locator(".order-card.st-pending .tag").first().innerText(), /Will retry|Waiting/);
 		await page.locator("button", { hasText: "Send now" }).click();
-		await page.waitForFunction(() => !document.querySelector(".order-card.st-pending"), null, { timeout: 10000 });
+		await waitFor(page, () => !document.querySelector(".order-card.st-pending"), { timeout: 10000 });
 		assert.equal(db.orders.length, before + 1);
 	});
 

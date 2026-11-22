@@ -32,7 +32,7 @@ jobs:
           npm test
       - name: Browser tests (offline, sync, XSS, CSP, responsive)
         run: |
-          npm install --no-save playwright@1.48.2
+          npm install --no-save playwright@1.63.0
           npx playwright install --with-deps chromium
           node tests_e2e/run.mjs
 
