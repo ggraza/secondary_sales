@@ -1,0 +1,222 @@
+{
+ "actions": [],
+ "creation": "2026-11-22 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "general_section",
+  "company",
+  "price_list",
+  "warehouse",
+  "column_break_gen",
+  "pack_uom",
+  "default_delivery_days",
+  "app_title",
+  "theme_color",
+  "offline_section",
+  "enable_offline",
+  "encrypt_local_data",
+  "max_offline_hours",
+  "column_break_off",
+  "max_order_age_days",
+  "max_items",
+  "max_customers",
+  "data_key_version",
+  "outstanding_section",
+  "ageing_range_1",
+  "ageing_range_2",
+  "column_break_age",
+  "ageing_range_3",
+  "ageing_range_4",
+  "route_section",
+  "nearby_radius_m",
+  "require_location"
+ ],
+ "fields": [
+  {
+   "fieldname": "general_section",
+   "fieldtype": "Section Break",
+   "label": "Defaults"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "price_list",
+   "fieldtype": "Link",
+   "label": "Default Selling Price List",
+   "options": "Price List",
+   "reqd": 1
+  },
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Default Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "column_break_gen",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Reps enter quantities as cases of this UOM plus loose pieces. Leave empty to order in stock UOM only.",
+   "fieldname": "pack_uom",
+   "fieldtype": "Link",
+   "label": "Case / Pack UOM",
+   "options": "UOM"
+  },
+  {
+   "default": "1",
+   "fieldname": "default_delivery_days",
+   "fieldtype": "Int",
+   "label": "Default Delivery (days after order)"
+  },
+  {
+   "default": "Secondary Sales",
+   "fieldname": "app_title",
+   "fieldtype": "Data",
+   "label": "App Title"
+  },
+  {
+   "default": "#0f6cbd",
+   "fieldname": "theme_color",
+   "fieldtype": "Color",
+   "label": "Theme Color"
+  },
+  {
+   "fieldname": "offline_section",
+   "fieldtype": "Section Break",
+   "label": "Offline and Security"
+  },
+  {
+   "default": "1",
+   "fieldname": "enable_offline",
+   "fieldtype": "Check",
+   "label": "Allow Offline Order Taking"
+  },
+  {
+   "default": "1",
+   "fieldname": "encrypt_local_data",
+   "fieldtype": "Check",
+   "label": "Encrypt Data Stored on Device"
+  },
+  {
+   "default": "72",
+   "description": "When the device has not reached the server for this long, the app locks until the rep signs in online again. 0 disables the lock.",
+   "fieldname": "max_offline_hours",
+   "fieldtype": "Int",
+   "label": "Lock App After Offline (hours)"
+  },
+  {
+   "fieldname": "column_break_off",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "7",
+   "fieldname": "max_order_age_days",
+   "fieldtype": "Int",
+   "label": "Reject Offline Orders Older Than (days)"
+  },
+  {
+   "default": "5000",
+   "fieldname": "max_items",
+   "fieldtype": "Int",
+   "label": "Max Items Sent to Device"
+  },
+  {
+   "default": "5000",
+   "fieldname": "max_customers",
+   "fieldtype": "Int",
+   "label": "Max Customers Sent to Device"
+  },
+  {
+   "default": "1",
+   "description": "Use 'Revoke Offline Data' to wipe local data on every device at its next sync.",
+   "fieldname": "data_key_version",
+   "fieldtype": "Int",
+   "label": "Device Data Key Version",
+   "read_only": 1
+  },
+  {
+   "fieldname": "outstanding_section",
+   "fieldtype": "Section Break",
+   "label": "Outstanding"
+  },
+  {
+   "default": "30",
+   "fieldname": "ageing_range_1",
+   "fieldtype": "Int",
+   "label": "Ageing Range 1 (days)"
+  },
+  {
+   "default": "60",
+   "fieldname": "ageing_range_2",
+   "fieldtype": "Int",
+   "label": "Ageing Range 2 (days)"
+  },
+  {
+   "fieldname": "column_break_age",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "90",
+   "fieldname": "ageing_range_3",
+   "fieldtype": "Int",
+   "label": "Ageing Range 3 (days)"
+  },
+  {
+   "default": "120",
+   "fieldname": "ageing_range_4",
+   "fieldtype": "Int",
+   "label": "Ageing Range 4 (days)"
+  },
+  {
+   "fieldname": "route_section",
+   "fieldtype": "Section Break",
+   "label": "Route"
+  },
+  {
+   "default": "500",
+   "fieldname": "nearby_radius_m",
+   "fieldtype": "Int",
+   "label": "Nearby Radius (metres)"
+  },
+  {
+   "default": "0",
+   "fieldname": "require_location",
+   "fieldtype": "Check",
+   "label": "Capture GPS Location With Each Visit"
+  }
+ ],
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-11-22 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Secondary Sales",
+ "name": "SSM Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Sales Manager",
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
