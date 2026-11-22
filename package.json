@@ -2,10 +2,7 @@
 	"name": "secondary_sales",
 	"private": true,
 	"type": "module",
-	"description": "Frontend tests for the Secondary Sales PWA (no build step is needed to run the app).",
-	"engines": {
-		"node": ">=22"
-	},
+	"description": "Frontend tests for the Secondary Sales PWA (no build step is needed to run the app). Tests need Node 22+.",
 	"scripts": {
 		"test": "node --test 'tests_js/*.test.js'",
 		"test:e2e": "node tests_e2e/run.mjs"
